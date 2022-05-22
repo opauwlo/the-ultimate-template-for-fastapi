@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  web:
+    container_name: web
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 3000 --reload
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:alpine
+    ports:
+      - '5432:5432'
+    container_name: 'fastapi-db'
+    restart: always
+    volumes:
+      - fastapi-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpassword
+
+volumes:
+  fastapi-data:
+  web:
