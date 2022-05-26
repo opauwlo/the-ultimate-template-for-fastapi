@@ -1,8 +1,1 @@
-from fastapi import FastAPI
-
-app = FastAPI()
-
-
-@app.get("/")
-async def root():
-    return {"oi": "oi ems e pauwlo"}
+from app.api.v1.main import app
